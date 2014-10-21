@@ -1,84 +1,91 @@
-/*
-	Importing modules
-*/
+/********************************************************************************
+								Importing modules
+********************************************************************************/
 var gulp 		= require('gulp'),
 	concat 		= require('gulp-concat')
 	uglify		= require('gulp-uglify'),
-	jsHint		= require('gulp-jshint'),
+	jsValidate	= require('gulp-jsvalidate'),
 	sass		= require('gulp-sass'),
 	plumber 	= require('gulp-plumber'),
 	browserSync = require('browser-sync'),
 	reload      = browserSync.reload,
+
+/********************************************************************************
+								Paths
+********************************************************************************/
 	scssPath 	= {'from':'src/scss/**/*.scss','to':'public/css'},
 	jsPath 		= {'from':'src/js/**/*.js','to':'public/js'},
 	phpPath 	= {'from':'src/**/*.php','to':'public'};
 
-//Scripts task
-gulp.task('scripts',function()
+/********************************************************************************
+								Task's list
+********************************************************************************/
+
+// Scripts task
+gulp.task('jsScripts',function()
 {
-	gulp.src( jsPath.from )
+	gulp.src ( jsPath.from ) 
 		.pipe( plumber({errorHandler: displayError}) )
+    	.pipe( jsValidate() )
 		.pipe( concat('main.js') )
 		.pipe( uglify() )
 		.pipe( gulp.dest( jsPath.to ) )
-		.pipe(reload({stream:true}));
+		.pipe( reload({stream:true}) );
 
 });
 
-// styles task
-gulp.task('styles',function()
+// Scss task
+gulp.task('scss',function()
 {
-	gulp.src( scssPath.from )
+	gulp.src ( scssPath.from )
 		.pipe( plumber({errorHandler: displayError}) )
+		.pipe( concat('style.css') )
 		.pipe( sass())
-		.pipe(gulp.dest( scssPath.to ))
-		.pipe(reload({stream:true}));
+		.pipe( gulp.dest( scssPath.to ) )
+		.pipe( reload({stream:true}) );
 });
 
-
-gulp.task('php-files',function()
+// Php task
+gulp.task('phpFiles',function()
 {
-	gulp.src( phpPath.from )
+	gulp.src ( phpPath.from )
 		.pipe( gulp.dest( phpPath.to ) )
 		.pipe( reload({stream:true}) );
 });
 
-gulp.task('browser-sync', function() {
+// BrowserSync task
+gulp.task('browser-sync', function()
+{
     browserSync({
     	open: true,
         proxy: "localhost"
     });
 });
 
-gulp.task('bs-reload', function () {
-    reload();
-});
-// Watch JS Files saved
+// Watching files and triggering tasks
 gulp.task('watch', function()
 {
-	gulp.watch( jsPath.from ,['scripts']);// what to watch [task to run ]
-	gulp.watch( scssPath.from ,['styles']);
-	gulp.watch( phpPath.from ,['php-files']);
+	gulp.watch( jsPath.from ,['jsScripts'] );
+	gulp.watch( scssPath.from ,['scss'] );
+	gulp.watch( phpPath.from ,['phpFiles'] );
 });
 
 
+// Default task's list
+gulp.task('default',['jsScripts','scss','phpFiles','browser-sync','watch']);
 
-gulp.task('default',['scripts','styles','php-files','browser-sync','watch']);
 
-
-
-var displayError = function(error) {
+//Custom error display for plumber
+var displayError = function(error) 
+{
 
     // Initial building up of the error
     var errorString = '[' + error.plugin + ']';
-    errorString += ' ' + error.message.replace("\n",''); // Removes new line at the end
+    	errorString += ' ' + error.message.replace("\n",''); // Removes new line at the end
 
     // If the error contains the filename or line number add it to the string
-    if(error.fileName)
-        errorString += ' in ' + error.fileName;
-
-    if(error.lineNumber)
-        errorString += ' on line ' + error.lineNumber;
+        errorString += ' in ' + error.fileName || "";
+        errorString += ' on line ' + error.lineNumber || "";
 
     // This will output an error like the following:
     // [gulp-sass] error message in file_name on line 1
