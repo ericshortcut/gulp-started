@@ -14,7 +14,7 @@
 
 		for ($i=1; $i < 100 ; $i++) 
 		{ 
-			echo "<li>Hello world ". $i ."</li>";
+			echo "<li><a href='#'>Hello world ". $i ."</a></li>";
 		}
 		
 	 ?>

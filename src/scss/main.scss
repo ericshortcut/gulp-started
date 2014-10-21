@@ -1,18 +1,15 @@
-
-$default_color : #BADA55;
-$default_bg : #F00;
-$default_font: 3em;
+@import '_variables.scss';
 
 body
 {
-	background: $default_bg;
-	font-size: $default_font;
+	background: $df-background;
+	font-size: $df-font-size;
 	height: 4000px;
 }
 
 h1
 {
-	color: $default_color;
+	color: $df-color;
 	margin: 0 auto;
 
 }

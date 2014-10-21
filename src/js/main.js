@@ -1,5 +1,1 @@
-console.log("hello world");
-function call()
-{
-  console.log("called call function");
-}
+console.log("--------- MAIN JS ---------")
