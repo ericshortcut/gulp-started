@@ -1,0 +1,28 @@
+{
+  "name": "GulpTut",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "none",
+  "scripts": {
+    "test": "hello world"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Eric Andrade",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^1.5.8",
+    "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.1",
+    "gulp-jshint": "^1.8.5",
+    "gulp-plumber": "^0.6.6",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-sass": "^1.2.0",
+    "gulp-uglify": "^1.0.1"
+  }
+}

@@ -1,0 +1,23 @@
+
+$default_color : #BADA55;
+$default_bg : #F00;
+$default_font: 3em;
+
+body
+{
+	background: $default_bg;
+	font-size: $default_font;
+	height: 4000px;
+}
+
+h1
+{
+	color: $default_color;
+	margin: 0 auto;
+
+}
+
+ul
+{
+	list-style: none;
+}
