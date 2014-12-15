@@ -57,7 +57,7 @@ gulp.task('phpFiles',function()
 gulp.task('browser-sync', function()
 {
     browserSync({
-    	open: true,
+    		port:8888,
         proxy: "localhost"
     });
 });
